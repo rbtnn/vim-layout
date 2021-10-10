@@ -48,7 +48,7 @@ function! s:restore_layout(layout) abort
 		endfor
 	elseif id == 'leaf'
 		if filereadable(a:layout[1])
-			execute 'edit' a:layout[1]
+			execute printf('edit %s', fnameescape(a:layout[1]))
 		endif
 	endif
 endfunction
@@ -57,7 +57,7 @@ function! s:replace_winid2path(xs) abort
 	for x in a:xs
 		if x[0] == 'leaf'
 			let bname = bufname(winbufnr(x[1]))
-			if !empty(bname)
+			if !empty(bname) && filereadable(bname)
 				let x[1] = fnamemodify(bname, ':p')
 			else
 				let x[1] = ''
