@@ -12,13 +12,17 @@ Variables                |layout-variables|
 ==============================================================================
 Commands                                                       *layout-commands*
 
-*:LayoutSave*
-	Same as `:call layout#save(get(g:, 'layout_path', '~/layout.json'))` .
+*:LayoutSave* [{path}]
+	If {path} is specified, call |layout#save()| with {path} as a argument.
+	If {path} is not specified, call |layout#save()| with
+	`get(g:, 'layout_path', '~/layout.json')` as a argument.
 
 
 
-*:LayoutLoad*
-	Same as `:call layout#load(get(g:, 'layout_path', '~/layout.json'))` .
+*:LayoutLoad* [{path}]
+	If {path} is specified, call |layout#load()| with {path} as a argument.
+	If {path} is not specified, call |layout#load()| with
+	`get(g:, 'layout_path', '~/layout.json')` as a argument.
 
 
 
@@ -39,7 +43,8 @@ layout#load({path})                                              *layout#load()*
 Variables                                                     *layout-variables*
 
 g:layout_path                                                    *g:layout_path*
-	(default: `~/layout.json`)
+	The default argument of |layout#save()| and |layout#load()|.
+
 
 
 ==============================================================================

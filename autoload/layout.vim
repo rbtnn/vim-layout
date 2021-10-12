@@ -1,12 +1,16 @@
 
+let s:layout_path_def = '~/layout.json'
+
 function! layout#save(path) abort
+	let path = expand(!empty(a:path) ? a:path : get(g:, 'layout_path', s:layout_path_def))
 	let xs = map(range(1, tabpagenr('$')), { i, x -> winlayout(x) })
 	call s:replace_winid2path(xs)
-	call writefile([json_encode(xs)], expand(a:path))
+	call writefile([json_encode(xs)], path)
 endfunction
 
 function! layout#load(path) abort
-	let tagpage_layouts = json_decode(join(readfile(expand(a:path)), ''))
+	let path = expand(!empty(a:path) ? a:path : get(g:, 'layout_path', s:layout_path_def))
+	let tagpage_layouts = json_decode(join(readfile(path), ''))
 	" keep only one window and one tabpage.
 	for n in range(2, tabpagenr('$'))
 		only!
